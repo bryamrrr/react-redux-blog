@@ -23,16 +23,6 @@ function requestHandler(request, response) {
     response.end();
   }
 
-  // if (context.url) {
-  //   response.writeHead(404);
-
-  //   html = renderToString(
-  //     <StaticRouter location={request.url} context={context}>
-  //       <Pages />
-  //     </StaticRouter>
-  //   );
-  // }
-
   response.write(html);
   response.end();
 }

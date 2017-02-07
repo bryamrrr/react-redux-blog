@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class About extends Component {
+class Post extends Component {
   render() {
     return (
-      <section name="About">
-        <h1>About</h1>
+      <section name="Post">
+        <h1>Post</h1>
         <Link to="/home">
           Ir a inicio
         </Link>
@@ -17,4 +17,4 @@ class About extends Component {
   }
 }
 
-export default About;
+export default Post;
