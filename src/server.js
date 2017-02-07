@@ -10,7 +10,7 @@ function requestHandler(request, response) {
   const context = {};
 
   let html = renderToString(
-    <StaticRouter location={request.url} context={context}>
+    <StaticRouter location={request.url} contex={context}>
       <Pages />
     </StaticRouter>
   );
