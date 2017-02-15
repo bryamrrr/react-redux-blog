@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/client.jsx',
+  entry: './src/client.js',
   output: {
     filename: 'app.js',
     path: './build/statics'
@@ -8,7 +8,7 @@ module.exports = {
     loaders: [
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
       {
         test: /\.jsx?$/,

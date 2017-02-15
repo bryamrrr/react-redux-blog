@@ -8,6 +8,16 @@ const api = {
       const response = await fetch(`${baseUrl}/posts?_page=${page}`);
       const data = await response.json();
       return data;
+    },
+    async getSingle(id = 1) {
+      const response = await fetch(`${baseUrl}/posts/${id}`);
+      const data = await response.json();
+      return data;
+    },
+    async getComments(id = 1) {
+      const response = await fetch(`${baseUrl}/posts/${id}/comments`);
+      const data = await response.json();
+      return data;
     }
   }
 };
