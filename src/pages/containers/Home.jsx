@@ -11,7 +11,7 @@ class Home extends Component {
 
     this.state = {
       page: 1,
-      posts,
+      posts: [],
       loading: true
     };
   }
@@ -20,8 +20,8 @@ class Home extends Component {
     const posts = await api.posts.getList(this.state.page);
 
     this.setState({
-      posts,
       page: this.page.state + 1,
+      posts,
       loading: false
     });
   }

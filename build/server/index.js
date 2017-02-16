@@ -13813,7 +13813,7 @@ class Home extends _react.Component {
 
     this.state = {
       page: 1,
-      posts,
+      posts: [],
       loading: true
     };
   }
@@ -13825,8 +13825,8 @@ class Home extends _react.Component {
       const posts = yield _api2.default.posts.getList(_this.state.page);
 
       _this.setState({
-        posts,
         page: _this.page.state + 1,
+        posts,
         loading: false
       });
     })();
