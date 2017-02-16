@@ -20,7 +20,7 @@ class Home extends Component {
     const posts = await api.posts.getList(this.state.page);
 
     this.setState({
-      page: this.page.state + 1,
+      page: this.state.page + 1,
       posts,
       loading: false
     });

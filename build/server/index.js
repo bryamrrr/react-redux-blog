@@ -9876,6 +9876,10 @@ module.exports = require("url");
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _isomorphicFetch = __webpack_require__(142);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
@@ -9911,6 +9915,8 @@ const api = {
     }
   }
 };
+
+exports.default = api;
 
 /***/ }),
 /* 66 */
@@ -13825,7 +13831,7 @@ class Home extends _react.Component {
       const posts = yield _api2.default.posts.getList(_this.state.page);
 
       _this.setState({
-        page: _this.page.state + 1,
+        page: _this.state.page + 1,
         posts,
         loading: false
       });
