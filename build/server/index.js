@@ -13842,6 +13842,8 @@ class Home extends _react.Component {
       posts: [],
       loading: true
     };
+
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -13855,7 +13857,41 @@ class Home extends _react.Component {
         posts,
         loading: false
       });
+
+      window.addEventListener('scroll', _this.handleScroll);
     })();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    var _this2 = this;
+
+    if (this.state.loading) return null;
+
+    const scrolled = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const fullHeight = document.body.clientHeight;
+
+    if (!(scrolled + viewportHeight + 300 >= fullHeight)) {
+      return null;
+    }
+
+    this.setState({ loading: true }, _asyncToGenerator(function* () {
+      try {
+        const posts = yield _api2.default.posts.getList(_this2.state.page);
+        _this2.setState({
+          posts: _this2.state.posts.concat(posts),
+          page: _this2.state.page + 1,
+          loading: false
+        });
+      } catch (error) {
+        console.error(error);
+        _this2.setState({ loading: false });
+      }
+    }));
   }
 
   render() {
@@ -13870,8 +13906,8 @@ class Home extends _react.Component {
       _react2.default.createElement(
         'section',
         null,
-        this.state.loading && _react2.default.createElement(_Loading2.default, null),
-        this.state.posts.map(post => _react2.default.createElement(_Post2.default, _extends({ key: post.id }, post)))
+        this.state.posts.map(post => _react2.default.createElement(_Post2.default, _extends({ key: post.id }, post))),
+        this.state.loading && _react2.default.createElement(_Loading2.default, null)
       )
     );
   }
@@ -13905,6 +13941,10 @@ var _Post2 = _interopRequireDefault(_Post);
 var _Loading = __webpack_require__(257);
 
 var _Loading2 = _interopRequireDefault(_Loading);
+
+var _Comment = __webpack_require__(258);
+
+var _Comment2 = _interopRequireDefault(_Comment);
 
 var _api = __webpack_require__(102);
 
@@ -13954,7 +13994,12 @@ class Post extends _react.Component {
       _react2.default.createElement(_Post2.default, _extends({}, this.state.post, {
         user: this.state.user,
         comments: this.state.comments
-      }))
+      })),
+      _react2.default.createElement(
+        'section',
+        null,
+        this.state.comments.map(comment => _react2.default.createElement(_Comment2.default, _extends({ key: comment.id }, comment)))
+      )
     );
   }
 }
@@ -36379,6 +36424,48 @@ function Loading() {
 };
 
 exports.default = Loading;
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Comment(props) {
+  return _react2.default.createElement(
+    'article',
+    { id: `comment-${props.id}` },
+    _react2.default.createElement(
+      'div',
+      null,
+      'By: ',
+      _react2.default.createElement(
+        'a',
+        { href: `mailto:${props.emial}` },
+        ' ',
+        props.name
+      )
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      props.body
+    )
+  );
+}
+
+exports.default = Comment;
 
 /***/ })
 /******/ ]);

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PostBody from '../../posts/containers/Post.jsx';
 import Loading from '../../shared/components/Loading.jsx';
+import Comment from '../../comments/components/Comment.jsx';
 
 import api from '../../api.js';
 
@@ -49,6 +50,13 @@ class Post extends Component {
           user={this.state.user}
           comments={this.state.comments}
         />
+        <section>
+          {this.state.comments
+            .map(comment => (
+              <Comment key={comment.id} {...comment} />
+            ))
+          }
+        </section>
       </section>
     )
   }
