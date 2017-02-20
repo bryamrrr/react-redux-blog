@@ -1,3 +1,44 @@
 .header {
   background: linear-gradient(90deg, #1c3643 0, #273b47 25%, #1e5272);
 }
+
+.title {
+  align-items: center;
+  box-sizing: border-box;
+  color: #fff;
+  display: flex;
+  flex-shrink: 0;
+  font-size: 2em;
+  font-weight: normal;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: .5em 1em;
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  padding: 1em;
+}
+
+.link {
+  border-radius: .25em;
+  border: 1px solid white;
+  color: white;
+  margin: 0 .5em;
+  padding: .25em .5em;
+  text-decoration: none;
+  transition: all .3s;
+}
+.link:first-of-type {
+  margin-left: 0;
+}
+.link:last-of-type {
+  margin-right: 0;
+}
+.link:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.01);
+}

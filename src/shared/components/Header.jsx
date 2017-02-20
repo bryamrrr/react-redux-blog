@@ -6,12 +6,12 @@ import styles from './Header.css'
 function Header() {
   return (
     <header className={styles.header}>
-      <h1>
+      <h1 className={styles.title}>
         React!
       </h1>
 
-      <nav role="navigation">
-        <Link to="/">
+      <nav role="navigation" className={styles.navigation}>
+        <Link to="/" className={styles.link}>
           Home
         </Link>
       </nav>
