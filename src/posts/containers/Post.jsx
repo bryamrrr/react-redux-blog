@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 
-import api from '../../api.js';
+import api from '../../api';
 
 import styles from './Post.css';
 
@@ -12,25 +12,29 @@ class Post extends Component {
     this.state = {
       loading: true,
       user: props.user || null,
-      comments: props.comments || null
-    }
+      comments: props.comments || null,
+    };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.initialFetch();
+  }
+
+  async initialFetch() {
     if (!!this.state.user && !!this.state.comments) return this.setState({ loading: false });
 
     const [
       user,
-      comments
+      comments,
     ] = await Promise.all([
       !this.state.user ? api.users.getSingle(this.props.userId) : Promise.resolve(null),
-      !this.state.comments ? api.posts.getComments(this.props.id) : Promise.resolve(null)
+      !this.state.comments ? api.posts.getComments(this.props.id) : Promise.resolve(null),
     ]);
 
-    this.setState({
+    return this.setState({
       loading: false,
       user: user || this.state.user,
-      comments: comments || this.state.comments
+      comments: comments || this.state.comments,
     });
   }
 
@@ -56,15 +60,19 @@ class Post extends Component {
           </div>
         )}
       </article>
-    )
+    );
   }
 }
 
 Post.propTypes = {
-  id: PropTypes.number,
-  userId: PropTypes.number,
-  title: PropTypes.string,
-  body: PropTypes.string
-}
+  id: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+  }).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Post;

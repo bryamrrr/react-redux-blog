@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, PropTypes } from 'react';
 
-import Post from '../../posts/containers/Post.jsx';
-import Loading from '../../shared/components/Loading.jsx';
+import Post from '../../posts/containers/Post';
+import Loading from '../../shared/components/Loading';
 
-import api from '../../api.js';
+import api from '../../api';
 
 class Profile extends Component {
   constructor(props) {
@@ -13,29 +12,33 @@ class Profile extends Component {
     this.state = {
       user: {},
       posts: [],
-      loading: true
+      loading: true,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.initialFetch();
+  }
+
+  async initialFetch() {
     const [
       user,
-      posts
+      posts,
     ] = await Promise.all([
       api.users.getSingle(this.props.match.params.id),
-      api.users.getPosts(this.props.match.params.id)
+      api.users.getPosts(this.props.match.params.id),
     ]);
 
     this.setState({
       user,
       posts,
-      loading: false
+      loading: false,
     });
   }
 
   render() {
     if (this.state.loading) {
-      return <Loading />
+      return <Loading />;
     }
 
     return (
@@ -69,8 +72,20 @@ class Profile extends Component {
           }
         </section>
       </section>
-    )
+    );
   }
 }
+
+Profile.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+};
+
+Profile.defaultProps = {
+  match: {},
+};
 
 export default Profile;

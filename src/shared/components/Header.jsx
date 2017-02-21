@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './Header.css'
+import styles from './Header.css';
 
 function Header() {
   return (
@@ -16,7 +16,7 @@ function Header() {
         </Link>
       </nav>
     </header>
-  )
+  );
 }
 
 export default Header;

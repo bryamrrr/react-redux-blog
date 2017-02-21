@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   Route,
-  Switch
+  Switch,
 } from 'react-router-dom';
-import Home from './Home.jsx';
-import Post from './Post.jsx';
-import Profile from './Profile.jsx';
-import Error404 from './Error404.jsx';
-import Header from '../../shared/components/Header.jsx';
+import Home from './Home';
+import Post from './Post';
+import Profile from './Profile';
+import Error404 from './Error404';
+import Header from '../../shared/components/Header';
 
 function Pages() {
   return (
@@ -21,13 +21,13 @@ function Pages() {
           exact
           component={Home}
         />
-      {/* Detalle de artículo */}
+        {/* Detalle de artículo */}
         <Route
           path="/post/:id"
           exact
           component={Post}
         />
-      {/* Perfil de usuario */}
+        {/* Perfil de usuario */}
         <Route
           path="/user/:id"
           exact

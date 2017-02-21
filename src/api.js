@@ -18,7 +18,7 @@ const api = {
       const response = await fetch(`${baseUrl}/posts/${id}/comments`);
       const data = await response.json();
       return data;
-    }
+    },
   },
   users: {
     async getSingle(id = 1) {
@@ -30,8 +30,8 @@ const api = {
       const response = await fetch(`${baseUrl}/posts?userId=${id}`);
       const data = await response.json();
       return data;
-    }
-  }
+    },
+  },
 };
 
 export default api;
