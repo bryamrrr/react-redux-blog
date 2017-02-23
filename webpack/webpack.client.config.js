@@ -1,10 +1,12 @@
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+const config = {
   entry: './src/client.jsx',
   output: {
     filename: 'app.js',
-    path: './build/statics'
+    path: './build/statics',
+    publicPath: process.env.NODE_ENV === 'production' ? 'https://react-redux-blog-sfs.now.sh' : 'http://localhost:3020/'
   },
   module: {
     loaders: [
@@ -23,7 +25,16 @@ module.exports = {
         exclude: /(node_modules)/,
         query: {
           presets: ['es2016', 'es2017', 'react'],
-          plugins: ['transform-es2015-modules-commonjs']
+          plugins: ['transform-es2015-modules-commonjs'],
+          env: {
+            production: {
+              plugins: ['transform-regenerator', 'transform-runtime'],
+              presets: ['es2015']
+            },
+            development: {
+              plugins: ['transform-es2015-modules-commonjs']
+            }
+          }
         }
       },
       {
@@ -41,6 +52,28 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css'],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      },
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(true),
     new ExtractTextPlugin('../statics/styles.css')
   ]
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins.push(
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+      mangle: {
+        except: ['$super', '$', 'exports', 'require'],
+      },
+    })
+  );
+}
+
+module.exports = config;

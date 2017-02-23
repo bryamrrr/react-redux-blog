@@ -9,6 +9,8 @@ import Layout from './pages/components/Layout';
 
 import messages from './messages.json';
 
+const domain = process.env.NODE_ENV === 'production' ? 'https://react-redux-blog-sfs.now.sh' : 'http://localhost:3020';
+
 function requestHandler(request, response) {
   const locale = request.headers['accept-language'].indexOf('es') >= 0 ? 'es' : 'en';
 
@@ -36,6 +38,7 @@ function requestHandler(request, response) {
       <Layout
         title="Aplicación"
         content={html}
+        domain={domain}
       />,
     ),
   );
