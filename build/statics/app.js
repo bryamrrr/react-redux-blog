@@ -13123,13 +13123,17 @@ var _reduxLogger = __webpack_require__(285);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
+var _reduxThunk = __webpack_require__(308);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
 var _reducer = __webpack_require__(124);
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)()));
+const store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default));
 
 exports.default = store;
 
@@ -13200,6 +13204,15 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _api = __webpack_require__(31);
+
+var _api2 = _interopRequireDefault(_api);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 function setPost(post) {
   return {
     type: 'SET_POST',
@@ -13207,8 +13220,75 @@ function setPost(post) {
   };
 }
 
+function setComments(comments) {
+  return {
+    type: 'SET_COMMENTS',
+    payload: comments
+  };
+}
+
+function setUser(user) {
+  return {
+    type: 'SET_USER',
+    payload: user
+  };
+}
+
+function postsNextPage() {
+  return (() => {
+    var _ref = _asyncToGenerator(function* (dispatch, getState) {
+      const state = getState();
+      const currentPage = state.posts.page;
+
+      const posts = yield _api2.default.posts.getList(currentPage);
+
+      dispatch(setPost(posts));
+
+      return posts;
+    });
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  })();
+}
+
+function loadCommentsForPost(postId) {
+  return (() => {
+    var _ref2 = _asyncToGenerator(function* (dispatch) {
+      const comments = yield _api2.default.posts.getComments(postId);
+      dispatch(setComments(comments));
+      return comments;
+    });
+
+    return function (_x3) {
+      return _ref2.apply(this, arguments);
+    };
+  })();
+}
+
+function loadUser(userId) {
+  return (() => {
+    var _ref3 = _asyncToGenerator(function* (dispatch) {
+      const user = yield _api2.default.users.getSingle(userId);
+      dispatch(setUser(user));
+      return user;
+    });
+
+    return function (_x4) {
+      return _ref3.apply(this, arguments);
+    };
+  })();
+}
+
 exports.default = {
-  setPost
+  postsNextPage,
+  loadCommentsForPost,
+  loadUser,
+
+  setPost,
+  setComments,
+  setUser
 };
 
 /***/ }),
@@ -13319,6 +13399,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(69);
 
+var _redux = __webpack_require__(110);
+
 var _Post = __webpack_require__(39);
 
 var _Post2 = _interopRequireDefault(_Post);
@@ -13326,10 +13408,6 @@ var _Post2 = _interopRequireDefault(_Post);
 var _Loading = __webpack_require__(40);
 
 var _Loading2 = _interopRequireDefault(_Loading);
-
-var _api = __webpack_require__(31);
-
-var _api2 = _interopRequireDefault(_api);
 
 var _Page = __webpack_require__(296);
 
@@ -13368,10 +13446,7 @@ class Home extends _react.Component {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      const posts = yield _api2.default.posts.getList(_this.props.page);
-
-      _this.props.dispatch(_actions2.default.setPost(posts));
-
+      yield _this.props.actions.postsNextPage();
       _this.setState({ loading: false });
     })();
   }
@@ -13391,10 +13466,7 @@ class Home extends _react.Component {
 
     return this.setState({ loading: true }, _asyncToGenerator(function* () {
       try {
-        const posts = yield _api2.default.posts.getList(_this2.props.page);
-
-        _this2.props.dispatch(_actions2.default.setPost(posts));
-
+        yield _this2.props.actions.postsNextPage();
         _this2.setState({ loading: false });
       } catch (error) {
         console.error(error);
@@ -13419,7 +13491,7 @@ class Home extends _react.Component {
 }
 
 Home.propTypes = {
-  dispatch: _react.PropTypes.func.isRequired,
+  actions: _react.PropTypes.objectOf(_react.PropTypes.func).isRequired,
   posts: _react.PropTypes.arrayOf(_react.PropTypes.object).isRequired
 };
 
@@ -13430,7 +13502,11 @@ function mapStateToProps(state) {
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+  return { actions: (0, _redux.bindActionCreators)(_actions2.default, dispatch) };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Home);
 
 /***/ }),
 /* 122 */
@@ -33471,6 +33547,40 @@ const locale = navigator.languages.indexOf('es') >= 0 ? 'es' : 'en';
     )
   )
 ), document.getElementById('render-target'));
+
+/***/ }),
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+exports['default'] = thunk;
 
 /***/ })
 /******/ ]);
