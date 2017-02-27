@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "http://localhost:3020/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 194);
+/******/ 	return __webpack_require__(__webpack_require__.s = 195);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9001,13 +9001,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(193);
 
+var _reduxLogger = __webpack_require__(194);
+
+var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
 var _reducer = __webpack_require__(95);
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const store = (0, _redux.createStore)(_reducer2.default);
+const store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)()));
 
 exports.default = store;
 
@@ -21404,6 +21408,12 @@ module.exports = require("redux");
 
 /***/ }),
 /* 194 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-logger");
+
+/***/ }),
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
