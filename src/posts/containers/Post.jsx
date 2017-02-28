@@ -12,11 +12,7 @@ class Post extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: true,
-      user: props.user || null,
-      comments: props.comments || null,
-    };
+    this.state = { loading: true };
   }
 
   componentDidMount() {
@@ -24,7 +20,7 @@ class Post extends Component {
   }
 
   async initialFetch() {
-    if (!!this.props.user && !!this.props.comments) return this.setState({ loading: false });
+    if (this.props.user && this.props.comments.size > 0) return this.setState({ loading: false });
 
     await Promise.all([
       this.props.actions.loadUser(this.props.userId),
@@ -47,14 +43,14 @@ class Post extends Component {
         </p>
         {!this.state.loading && (
           <div>
-            <Link to={`/user/${this.props.user.id}`}>
-              {this.props.user.name}
+            <Link to={`/user/${this.props.user.get('id')}`}>
+              {this.props.user.get('name')}
             </Link>
             <span>
               <FormattedMessage
                 id="post.meta.comments"
                 values={{
-                  amount: this.props.comments.length,
+                  amount: this.props.comments.size,
                 }}
               />
             </span>
@@ -69,22 +65,28 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   id: PropTypes.number.isRequired,
-  userId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
+    size: PropTypes.number,
+    get: PropTypes.func,
   }).isRequired,
-  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  comments: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 function mapStateToProps(state, props) {
+  console.log('susto', state
+      .get('users'));
   return {
-    comments: state.comments.filter(comment => comment.postId === props.id),
-    user: state.users[props.userId],
+    comments: state
+      .get('comments')
+      .filter(comment => comment.get('postId') === props.id),
+    user: state
+      .get('users')
+      .get(props.userId),
   };
 }
 

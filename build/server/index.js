@@ -3653,11 +3653,7 @@ class Post extends _react.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: true,
-      user: props.user || null,
-      comments: props.comments || null
-    };
+    this.state = { loading: true };
   }
 
   componentDidMount() {
@@ -3668,7 +3664,7 @@ class Post extends _react.Component {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      if (!!_this.props.user && !!_this.props.comments) return _this.setState({ loading: false });
+      if (_this.props.user && _this.props.comments.size > 0) return _this.setState({ loading: false });
 
       yield Promise.all([_this.props.actions.loadUser(_this.props.userId), _this.props.actions.loadCommentsForPost(_this.props.id)]);
 
@@ -3699,8 +3695,8 @@ class Post extends _react.Component {
         null,
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: `/user/${this.props.user.id}` },
-          this.props.user.name
+          { to: `/user/${this.props.user.get('id')}` },
+          this.props.user.get('name')
         ),
         _react2.default.createElement(
           'span',
@@ -3708,7 +3704,7 @@ class Post extends _react.Component {
           _react2.default.createElement(_reactIntl.FormattedMessage, {
             id: 'post.meta.comments',
             values: {
-              amount: this.props.comments.length
+              amount: this.props.comments.size
             }
           })
         ),
@@ -3723,22 +3719,23 @@ class Post extends _react.Component {
 }
 
 Post.propTypes = {
-  actions: _react.PropTypes.objectOf(_react.PropTypes.func).isRequired,
   id: _react.PropTypes.number.isRequired,
-  userId: _react.PropTypes.number.isRequired,
   title: _react.PropTypes.string.isRequired,
   body: _react.PropTypes.string.isRequired,
   user: _react.PropTypes.shape({
     id: _react.PropTypes.number,
-    name: _react.PropTypes.string
+    name: _react.PropTypes.string,
+    size: _react.PropTypes.number,
+    get: _react.PropTypes.func
   }).isRequired,
-  comments: _react.PropTypes.arrayOf(_react.PropTypes.object).isRequired
+  comments: _react.PropTypes.objectOf(_react.PropTypes.object).isRequired
 };
 
 function mapStateToProps(state, props) {
+  console.log('susto', state.get('users'));
   return {
-    comments: state.comments.filter(comment => comment.postId === props.id),
-    user: state.users[props.userId]
+    comments: state.get('comments').filter(comment => comment.get('postId') === props.id),
+    user: state.get('users').get(props.userId)
   };
 }
 
@@ -6431,7 +6428,7 @@ function postsNextPage() {
   return (() => {
     var _ref = _asyncToGenerator(function* (dispatch, getState) {
       const state = getState();
-      const currentPage = state.posts.page;
+      const currentPage = state.get('posts').get('page');
 
       const posts = yield _api2.default.posts.getList(currentPage);
 
@@ -9375,7 +9372,7 @@ class Home extends _react.Component {
       _react2.default.createElement(
         'section',
         { className: _Page2.default.list },
-        this.props.posts.map(post => _react2.default.createElement(_Post2.default, _extends({ key: post.id }, post))),
+        this.props.posts.map(post => _react2.default.createElement(_Post2.default, _extends({ key: post.get('id') }, post.toJS()))).toArray(),
         this.state.loading && _react2.default.createElement(_Loading2.default, null)
       )
     );
@@ -9384,13 +9381,15 @@ class Home extends _react.Component {
 
 Home.propTypes = {
   actions: _react.PropTypes.objectOf(_react.PropTypes.func).isRequired,
-  posts: _react.PropTypes.arrayOf(_react.PropTypes.object).isRequired
+  posts: _react.PropTypes.shape({
+    size: _react.PropTypes.number,
+    map: _react.PropTypes.func
+  }).isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts.entities,
-    page: state.posts.page
+    posts: state.get('posts').get('entities')
   };
 }
 
@@ -9635,18 +9634,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(56);
+var _reduxImmutable = __webpack_require__(194);
 
-const initialState = {
+var _immutable = __webpack_require__(203);
+
+const initialState = (0, _immutable.fromJS)({
   posts: {
     page: 1,
-    entities: []
+    entities: {}
   },
-  comments: [],
+  comments: {},
   users: {}
-};
+});
 
-function postsPageReducer(state = initialState.posts.page, action = {}) {
+function postsPageReducer(state = initialState.get('posts').get('page'), action = {}) {
   switch (action.type) {
     case 'SET_POST':
       {
@@ -9659,10 +9660,10 @@ function postsPageReducer(state = initialState.posts.page, action = {}) {
   }
 }
 
-function postsEntitiesReducer(state = initialState.posts.entities, action = {}) {
+function postsEntitiesReducer(state = initialState.get('posts').get('entities'), action = {}) {
   switch (action.type) {
     case 'SET_POST':
-      return state.concat(action.payload);
+      return action.payload.reduce((posts, post) => posts.set(post.id, (0, _immutable.Map)(post)), state);
     default:
       {
         return state;
@@ -9670,15 +9671,15 @@ function postsEntitiesReducer(state = initialState.posts.entities, action = {}) 
   }
 }
 
-const postsReducer = (0, _redux.combineReducers)({
+const postsReducer = (0, _reduxImmutable.combineReducers)({
   page: postsPageReducer,
   entities: postsEntitiesReducer
 });
 
-function commentsReducer(state = initialState.comments, action = {}) {
+function commentsReducer(state = initialState.get('comments'), action = {}) {
   switch (action.type) {
     case 'SET_COMMENTS':
-      return state.concat(action.payload);
+      return action.payload.reduce((comments, comment) => comments.set(comment.id, (0, _immutable.Map)(comment)), state);
     default:
       {
         return state;
@@ -9686,12 +9687,10 @@ function commentsReducer(state = initialState.comments, action = {}) {
   }
 }
 
-function usersReducer(state = initialState.users, action = {}) {
+function usersReducer(state = initialState.get('users'), action = {}) {
   switch (action.type) {
     case 'SET_USER':
-      return Object.assign({}, state, {
-        [action.payload.id]: action.payload
-      });
+      return state.set(action.payload.id, (0, _immutable.Map)(action.payload));
     default:
       {
         return state;
@@ -9699,7 +9698,7 @@ function usersReducer(state = initialState.users, action = {}) {
   }
 }
 
-const reducer = (0, _redux.combineReducers)({
+const reducer = (0, _reduxImmutable.combineReducers)({
   posts: postsReducer,
   comments: commentsReducer,
   users: usersReducer
@@ -21543,7 +21542,12 @@ module.exports = {"header":"_3d2jdr-w1CaUQKJBWh2bsv","title":"_1LQjnHZD3jWJeu5Qq
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 194 */,
+/* 194 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-immutable");
+
+/***/ }),
 /* 195 */
 /***/ (function(module, exports) {
 
@@ -21637,6 +21641,17 @@ function requestHandler(request, response) {
 const server = _http2.default.createServer(requestHandler);
 
 server.listen(3030);
+
+/***/ }),
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */
+/***/ (function(module, exports) {
+
+module.exports = require("immutable");
 
 /***/ })
 /******/ ]);
