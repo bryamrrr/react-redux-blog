@@ -59,7 +59,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <section name="Home" className={styles.section}>
         <section className={styles.list}>
