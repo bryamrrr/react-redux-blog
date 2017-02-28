@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "http://localhost:3020/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 197);
+/******/ 	return __webpack_require__(__webpack_require__.s = 199);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -3560,7 +3560,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _isomorphicFetch = __webpack_require__(193);
+var _isomorphicFetch = __webpack_require__(194);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -3732,7 +3732,6 @@ Post.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  console.log('susto', state.get('users'));
   return {
     comments: state.get('comments').filter(comment => comment.get('postId') === props.id),
     user: state.get('users').get(props.userId)
@@ -9114,13 +9113,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(56);
 
-var _reduxLogger = __webpack_require__(195);
+var _reduxLogger = __webpack_require__(197);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _reduxThunk = __webpack_require__(196);
+var _reduxThunk = __webpack_require__(198);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _reduxDevtoolsExtension = __webpack_require__(195);
 
 var _reducer = __webpack_require__(96);
 
@@ -9128,7 +9129,7 @@ var _reducer2 = _interopRequireDefault(_reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default));
+const store = (0, _redux.createStore)(_reducer2.default, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default)));
 
 exports.default = store;
 
@@ -9634,9 +9635,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reduxImmutable = __webpack_require__(194);
+var _reduxImmutable = __webpack_require__(196);
 
-var _immutable = __webpack_require__(203);
+var _immutable = __webpack_require__(193);
 
 const initialState = (0, _immutable.fromJS)({
   posts: {
@@ -21539,28 +21540,40 @@ module.exports = {"header":"_3d2jdr-w1CaUQKJBWh2bsv","title":"_1LQjnHZD3jWJeu5Qq
 /* 193 */
 /***/ (function(module, exports) {
 
-module.exports = require("isomorphic-fetch");
+module.exports = require("immutable");
 
 /***/ }),
 /* 194 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-immutable");
+module.exports = require("isomorphic-fetch");
 
 /***/ }),
 /* 195 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-logger");
+module.exports = require("redux-devtools-extension");
 
 /***/ }),
 /* 196 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-thunk");
+module.exports = require("redux-immutable");
 
 /***/ }),
 /* 197 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-logger");
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21641,17 +21654,6 @@ function requestHandler(request, response) {
 const server = _http2.default.createServer(requestHandler);
 
 server.listen(3030);
-
-/***/ }),
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */
-/***/ (function(module, exports) {
-
-module.exports = require("immutable");
 
 /***/ })
 /******/ ]);

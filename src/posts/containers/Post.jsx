@@ -78,8 +78,6 @@ Post.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  console.log('susto', state
-      .get('users'));
   return {
     comments: state
       .get('comments')
