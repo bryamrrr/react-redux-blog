@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1489186838619" clover="3.2.0">
+  <project timestamp="1489186838619" name="All files">
+    <metrics statements="53" coveredstatements="17" conditionals="21" coveredconditionals="8" methods="16" coveredmethods="7" elements="90" coveredelements="32" complexity="0" loc="53" ncloc="53" packages="2" files="4" classes="4">
+      <package name="src">
+        <metrics statements="51" coveredstatements="15" conditionals="21" coveredconditionals="8" methods="15" coveredmethods="6"/>
+        <file name="actions.js" path="/Users/brodriguez/projects/react-redux-blog/src/actions.js">
+          <metrics statements="17" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="1"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="13" count="1" type="stmt"/>
+          <line num="21" count="0" type="stmt"/>
+          <line num="29" count="0" type="stmt"/>
+          <line num="30" count="0" type="stmt"/>
+          <line num="31" count="0" type="stmt"/>
+          <line num="33" count="0" type="stmt"/>
+          <line num="35" count="0" type="stmt"/>
+          <line num="37" count="0" type="stmt"/>
+          <line num="43" count="0" type="stmt"/>
+          <line num="44" count="0" type="stmt"/>
+          <line num="45" count="0" type="stmt"/>
+          <line num="46" count="0" type="stmt"/>
+          <line num="52" count="0" type="stmt"/>
+          <line num="53" count="0" type="stmt"/>
+          <line num="54" count="0" type="stmt"/>
+          <line num="55" count="0" type="stmt"/>
+        </file>
+        <file name="api.js" path="/Users/brodriguez/projects/react-redux-blog/src/api.js">
+          <metrics statements="17" coveredstatements="2" conditionals="5" coveredconditionals="0" methods="0" coveredmethods="0"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="8" count="0" type="stmt"/>
+          <line num="9" count="0" type="stmt"/>
+          <line num="10" count="0" type="stmt"/>
+          <line num="13" count="0" type="stmt"/>
+          <line num="14" count="0" type="stmt"/>
+          <line num="15" count="0" type="stmt"/>
+          <line num="18" count="0" type="stmt"/>
+          <line num="19" count="0" type="stmt"/>
+          <line num="20" count="0" type="stmt"/>
+          <line num="25" count="0" type="stmt"/>
+          <line num="26" count="0" type="stmt"/>
+          <line num="27" count="0" type="stmt"/>
+          <line num="30" count="0" type="stmt"/>
+          <line num="31" count="0" type="stmt"/>
+          <line num="32" count="0" type="stmt"/>
+        </file>
+        <file name="reducer.js" path="/Users/brodriguez/projects/react-redux-blog/src/reducer.js">
+          <metrics statements="17" coveredstatements="12" conditionals="16" coveredconditionals="8" methods="6" coveredmethods="5"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="18" count="1" type="stmt"/>
+          <line num="20" count="0" type="stmt"/>
+          <line num="23" count="1" type="stmt"/>
+          <line num="30" count="1" type="stmt"/>
+          <line num="32" count="0" type="stmt"/>
+          <line num="34" count="0" type="stmt"/>
+          <line num="38" count="1" type="stmt"/>
+          <line num="44" count="1" type="stmt"/>
+          <line num="51" count="1" type="stmt"/>
+          <line num="53" count="1" type="stmt"/>
+          <line num="55" count="2" type="stmt"/>
+          <line num="59" count="0" type="stmt"/>
+          <line num="66" count="1" type="stmt"/>
+          <line num="68" count="0" type="stmt"/>
+          <line num="70" count="1" type="stmt"/>
+          <line num="76" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="src.comments.components">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="Comment.jsx" path="/Users/brodriguez/projects/react-redux-blog/src/comments/components/Comment.jsx">
+          <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="24" count="1" type="stmt"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>
