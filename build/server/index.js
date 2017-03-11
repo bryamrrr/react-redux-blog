@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "http://localhost:3020/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 199);
+/******/ 	return __webpack_require__(__webpack_require__.s = 200);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9113,15 +9113,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(56);
 
-var _reduxLogger = __webpack_require__(197);
+var _reduxLogger = __webpack_require__(198);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _reduxThunk = __webpack_require__(198);
+var _reduxThunk = __webpack_require__(199);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxDevtoolsExtension = __webpack_require__(195);
+var _reduxDevtoolsExtension = __webpack_require__(196);
 
 var _reducer = __webpack_require__(96);
 
@@ -9288,6 +9288,10 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDocumentTitle = __webpack_require__(195);
+
+var _reactDocumentTitle2 = _interopRequireDefault(_reactDocumentTitle);
+
 var _reactRedux = __webpack_require__(29);
 
 var _redux = __webpack_require__(56);
@@ -9368,13 +9372,17 @@ class Home extends _react.Component {
 
   render() {
     return _react2.default.createElement(
-      'section',
-      { name: 'Home', className: _Page2.default.section },
+      _reactDocumentTitle2.default,
+      { title: 'Blog | Inicio' },
       _react2.default.createElement(
         'section',
-        { className: _Page2.default.list },
-        this.props.posts.map(post => _react2.default.createElement(_Post2.default, _extends({ key: post.get('id') }, post.toJS()))).toArray(),
-        this.state.loading && _react2.default.createElement(_Loading2.default, null)
+        { name: 'Home', className: _Page2.default.section },
+        _react2.default.createElement(
+          'section',
+          { className: _Page2.default.list },
+          this.props.posts.map(post => _react2.default.createElement(_Post2.default, _extends({ key: post.get('id') }, post.toJS()))).toArray(),
+          this.state.loading && _react2.default.createElement(_Loading2.default, null)
+        )
       )
     );
   }
@@ -9635,7 +9643,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reduxImmutable = __webpack_require__(196);
+var _reduxImmutable = __webpack_require__(197);
 
 var _immutable = __webpack_require__(193);
 
@@ -21552,28 +21560,34 @@ module.exports = require("isomorphic-fetch");
 /* 195 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-devtools-extension");
+module.exports = require("react-document-title");
 
 /***/ }),
 /* 196 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-immutable");
+module.exports = require("redux-devtools-extension");
 
 /***/ }),
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-logger");
+module.exports = require("redux-immutable");
 
 /***/ }),
 /* 198 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-thunk");
+module.exports = require("redux-logger");
 
 /***/ }),
 /* 199 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

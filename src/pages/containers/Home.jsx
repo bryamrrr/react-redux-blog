@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -60,17 +61,19 @@ class Home extends Component {
 
   render() {
     return (
-      <section name="Home" className={styles.section}>
-        <section className={styles.list}>
-          {this.props.posts
-            .map(post => <Post key={post.get('id')} {...post.toJS()} />)
-            .toArray()
-          }
-          {this.state.loading && (
-            <Loading />
-          )}
+      <DocumentTitle title="Blog | Inicio">
+        <section name="Home" className={styles.section}>
+          <section className={styles.list}>
+            {this.props.posts
+              .map(post => <Post key={post.get('id')} {...post.toJS()} />)
+              .toArray()
+            }
+            {this.state.loading && (
+              <Loading />
+            )}
+          </section>
         </section>
-      </section>
+      </DocumentTitle>
     );
   }
 }
