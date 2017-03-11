@@ -32,6 +32,13 @@ const api = {
       return data;
     },
   },
+  gallery: {
+    async getPage(number = 1) {
+      const response = await fetch(`${baseUrl}/photos?_page=${number}`);
+      const data = await response.json();
+      return data;
+    },
+  },
 };
 
 export default api;
