@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Post from '../../posts/containers/Post';
 import Loading from '../../shared/components/Loading';
@@ -62,10 +63,25 @@ class Home extends Component {
     return (
       <section name="Home" className={styles.section}>
         <section className={styles.list}>
-          {this.props.posts
-            .map(post => <Post key={post.get('id')} {...post.toJS()} />)
-            .toArray()
-          }
+          <ReactCSSTransitionGroup
+            transitionName={{
+              enter: styles.enter,
+              enterActive: styles.enterActive,
+              appear: styles.appear,
+              appearActive: styles.appearActive,
+              leave: styles.leave,
+              leaveActive: styles.leaveActive,
+            }}
+            transitionAppear
+            transitionAppearTimeout={300}
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
+            {this.props.posts
+              .map(post => <Post key={post.get('id')} {...post.toJS()} />)
+              .toArray()
+            }
+          </ReactCSSTransitionGroup>
           {this.state.loading && (
             <Loading />
           )}

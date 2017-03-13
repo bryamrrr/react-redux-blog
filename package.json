@@ -31,6 +31,7 @@
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "react": "15.4.2",
+    "react-addons-css-transition-group": "^15.4.2",
     "react-dom": "15.4.2",
     "react-intl": "^2.2.3",
     "react-lazy-image": "^1.1.0",

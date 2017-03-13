@@ -36,7 +36,7 @@ class Gallery extends Component {
                 width="600"
                 height="600"
                 offset={300}
-              />
+              />,
             )
           }
         </section>

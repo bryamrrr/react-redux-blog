@@ -7,3 +7,25 @@
 .list {
   margin: 1em;
 }
+
+.appear {
+  opacity: 0;
+}
+.appearActive {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.enter {
+  opacity: 0;
+}
+.enterActive {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.leave {
+  opacity: 1;
+}
+.leaveActive {
+  opacity: 1;
+  transition: opacity 1s;
+}
