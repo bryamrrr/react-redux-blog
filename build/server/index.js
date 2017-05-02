@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "http://localhost:3020/";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 201);
+/******/ 	return __webpack_require__(__webpack_require__.s = 202);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -9138,15 +9138,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(56);
 
-var _reduxLogger = __webpack_require__(199);
+var _reduxLogger = __webpack_require__(200);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _reduxThunk = __webpack_require__(200);
+var _reduxThunk = __webpack_require__(201);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxDevtoolsExtension = __webpack_require__(197);
+var _reduxDevtoolsExtension = __webpack_require__(198);
 
 var _reducer = __webpack_require__(98);
 
@@ -9311,7 +9311,7 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactLazyImage = __webpack_require__(196);
+var _reactLazyImage = __webpack_require__(197);
 
 var _reactLazyImage2 = _interopRequireDefault(_reactLazyImage);
 
@@ -9392,7 +9392,7 @@ var _reactRedux = __webpack_require__(30);
 
 var _redux = __webpack_require__(56);
 
-var _reactAddonsCssTransitionGroup = __webpack_require__(207);
+var _reactAddonsCssTransitionGroup = __webpack_require__(196);
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
@@ -9756,7 +9756,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reduxImmutable = __webpack_require__(198);
+var _reduxImmutable = __webpack_require__(199);
 
 var _immutable = __webpack_require__(194);
 
@@ -21666,34 +21666,40 @@ module.exports = require("isomorphic-fetch");
 /* 196 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-lazy-image");
+module.exports = require("react-addons-css-transition-group");
 
 /***/ }),
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-devtools-extension");
+module.exports = require("react-lazy-image");
 
 /***/ }),
 /* 198 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-immutable");
+module.exports = require("redux-devtools-extension");
 
 /***/ }),
 /* 199 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-logger");
+module.exports = require("redux-immutable");
 
 /***/ }),
 /* 200 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-thunk");
+module.exports = require("redux-logger");
 
 /***/ }),
 /* 201 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21774,17 +21780,6 @@ function requestHandler(request, response) {
 const server = _http2.default.createServer(requestHandler);
 
 server.listen(3030);
-
-/***/ }),
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-addons-css-transition-group");
 
 /***/ })
 /******/ ]);
